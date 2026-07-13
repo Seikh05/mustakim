@@ -70,13 +70,13 @@ window.portfolioData = {
       period: "Jun 2026 - Aug 2026",
       role: "IASc Summer Research Fellow",
       organization: "Dept. of Electronic Systems Engineering, IISc Bengaluru",
-      description: "Selected for the highly competitive IASc-INSA-NASI Summer Research Fellowship Programme (SRFP). Engineered a YOLO-based PCB reverse engineering pipeline (97%+ confidence) and custom OCR for BoM extraction; validated on FICS-PCB dataset on TrustHub."
+      description: "Selected for the highly competitive IASc-INSA-NASI Summer Research Fellowship Programme (SRFP). Engineered an automated PCB reverse-engineering web application using YOLO-OBB and Vision LLMs to localize components and extract low-contrast text. Deployed an end-to-end Flask pipeline to instantly generate structured Hardware Bill of Materials (HBoM)."
     },
     {
       period: "Jun 2025 - Aug 2025",
       role: "Generative AI Internship",
       organization: "RMSoEE, IIT Kharagpur",
-      description: "Completed a hands-on GenAI programme covering LLM fine-tuning, Retrieval-Augmented Generation (RAG), and Model Context Protocol (MCP); implemented end-to-end generative AI workflows."
+      description: "Completed a hands-on GenAI program covering Deep Learning fundamentals, Retrieval-Augmented Generation (RAG), and Model Context Protocol (MCP); designed and deployed end-to-end generative AI workflows utilizing vector databases and prompt orchestration"
     },
     {
       period: "2023 - 2027",
