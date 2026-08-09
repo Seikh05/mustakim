@@ -12,7 +12,7 @@ window.portfolioData = {
     avatar: "assets/photo.png",
     cv: "assets/MyCV.pdf",
     interests: "Robotics & Autonomous Systems · Embedded Systems · Computer Vision · Generative AI",
-    statement: "I am an Electronics & Telecommunication Engineering student at Parala Maharaja Engineering College, Berhampur. Recently, I was an IASc Summer Research Fellow at the Department of Electronic Systems Engineering, IISc Bengaluru under Dr. Haresh Dagale. I am passionate about autonomous systems (ROS2, SLAM), embedded hardware control, and designing robust, edge-optimized software-hardware integrations."
+    statement: "I am an Electronics & Telecommunication Engineering student at Parala Maharaja Engineering College, Berhampur. Recently, I was an IASc Summer Research Fellow at the Department of Electronic Systems Engineering, IISc Bengaluru under Proff. Haresh Dagale. I am passionate about autonomous systems (ROS2, SLAM), embedded hardware control, and designing robust, edge-optimized software-hardware integrations."
   },
   socials: [
     { name: "GitHub", url: "https://github.com/Seikh05", icon: "github" },
@@ -20,7 +20,7 @@ window.portfolioData = {
     { name: "Email", url: "mailto:seikh2004mustakim@outlook.com", icon: "mail" },
     { name: "CV (PDF)", url: "assets/MyCV.pdf", icon: "file-text" }
   ],
-  currently: "Student at Parala Maharaja Engineering College. Recently completed an IASc Summer Research Fellowship at ESE, IISc Bengaluru, engineering deep learning pipelines for hardware assurance.",
+  currently: "Final year Student at Parala Maharaja Engineering College. Recently completed an IASc Summer Research Fellowship at ESE, IISc Bengaluru, engineering PCBRE — an automated multi-modal hardware auditing & reverse engineering framework.",
   skills: [
     // Robotics & Autonomous Systems
     { name: "ROS2 Humble", category: "Robotics" },
@@ -32,6 +32,7 @@ window.portfolioData = {
     { name: "AMCL", category: "Robotics" },
     { name: "A* Path Planning", category: "Robotics" },
     { name: "PID Control", category: "Robotics" },
+    { name: "URDF", category: "Robotics" },
     
     // Embedded Systems & Hardware
     { name: "Raspberry Pi", category: "Embedded & IoT" },
@@ -44,6 +45,7 @@ window.portfolioData = {
     // Computer Vision & ML
     { name: "OpenCV", category: "Vision & ML" },
     { name: "YOLOv8", category: "Vision & ML" },
+    { name: "YOLOv8 OBB", category: "Vision & ML" },
     { name: "MediaPipe", category: "Vision & ML" },
     { name: "Lucas-Kanade Optical Flow", category: "Vision & ML" },
     { name: "TensorRT", category: "Vision & ML" },
@@ -52,6 +54,7 @@ window.portfolioData = {
     { name: "Scikit-learn", category: "Vision & ML" },
     
     // GenAI
+    { name: "Gemini Vision", category: "Generative AI" },
     { name: "RAG pipelines", category: "Generative AI" },
     { name: "MCP", category: "Generative AI" },
     { name: "prompt engineering", category: "Generative AI" },
@@ -60,6 +63,8 @@ window.portfolioData = {
     // Programming & Tools
     { name: "Python", category: "Languages & Tools" },
     { name: "C / C++", category: "Languages & Tools" },
+    { name: "Flask", category: "Languages & Tools" },
+    { name: "Streamlit", category: "Languages & Tools" },
     { name: "Git", category: "Languages & Tools" },
     { name: "Linux", category: "Languages & Tools" },
     { name: "VS Code", category: "Languages & Tools" },
@@ -67,13 +72,13 @@ window.portfolioData = {
   ],
   timeline: [
     {
-      period: "Jun 2026 - Aug 2026",
+      period: "May 2026 - Jul 2026",
       role: "IASc Summer Research Fellow",
       organization: "Dept. of Electronic Systems Engineering, IISc Bengaluru",
-      description: "Selected for the highly competitive IASc-INSA-NASI Summer Research Fellowship Programme (SRFP). Engineered an automated PCB reverse-engineering web application using YOLO-OBB and Vision LLMs to localize components and extract low-contrast text. Deployed an end-to-end Flask pipeline to instantly generate structured Hardware Bill of Materials (HBoM)."
+      description: "Selected for the highly competitive IASc-INSA-NASI Summer Research Fellowship Programme (SRFP). Engineered PCBRE — a non-destructive hardware auditing pipeline using YOLOv8 for component detection and Gemini Vision for chip OCR; integrated silkscreen analysis to map power rails and generate a complete HBoM with datasheet links."
     },
     {
-      period: "Jun 2025 - Aug 2025",
+      period: "Jun 2025 - July 2025",
       role: "Generative AI Internship",
       organization: "RMSoEE, IIT Kharagpur",
       description: "Completed a hands-on GenAI program covering Deep Learning fundamentals, Retrieval-Augmented Generation (RAG), and Model Context Protocol (MCP); designed and deployed end-to-end generative AI workflows utilizing vector databases and prompt orchestration"
@@ -94,16 +99,44 @@ window.portfolioData = {
       period: "2010 - 2020",
       role: "Secondary",
       organization: "St. Xavier's High School, Athagarh",
-      description: "Completed basic schooling with 93.8% aggregate."
+      description: "Completed basic schooling with 94% aggregate."
     }
   ],
   projects: [
     {
-      title: "Destination_bot — A* Path Planning on ROS2",
-      meta: "ROS2 · Gazebo · SLAM Toolbox · Nav2 · Python · RViz2",
-      description: "Built a custom URDF differential-drive robot with a full SLAM pipeline and custom A* path planning node for autonomous collision-free navigation in Gazebo.",
-      tags: ["ROS2 Humble", "Gazebo", "SLAM Toolbox", "Nav2", "Python"],
-      link: "https://github.com/Seikh05"
+      title: "PCBRE — Multi-Modal Hardware Auditing & Reverse Engineering Framework",
+      meta: "YOLOv8 OBB · Gemini Vision · Flask · OpenCV · Python",
+      description: "Built a non-destructive hardware auditing pipeline using YOLOv8 for component detection and Gemini Vision for chip OCR; integrated silkscreen analysis to map power rails and generate a complete HBoM with datasheet links. (Research Internship, DESE, IISc Bengaluru 2026).",
+      tags: ["YOLOv8 OBB", "Gemini Vision", "Flask", "OpenCV", "Python"],
+      link: "https://github.com/Seikh05/PCBRE"
+    },
+    {
+      title: "Destination_bot — Autonomous Navigation on ROS2",
+      meta: "ROS2 · Gazebo · SLAM Toolbox · Nav2 · Python",
+      description: "Designed a custom differential-drive robot in URDF; integrated SLAM for mapping and a hand-rolled A* planner for collision-free autonomous navigation in simulation.",
+      tags: ["ROS2 Humble", "Gazebo", "SLAM Toolbox", "Nav2", "Python", "URDF"],
+      link: "https://github.com/Seikh05/destination_bot"
+    },
+    {
+      title: "FemeVision — Multi-Modal Safety Perception",
+      meta: "YOLOv8 · Lucas-Kanade · MediaPipe · OpenCV · Streamlit",
+      description: "Fused object detection, optical flow, and pose tracking into a real-time violence detection pipeline — Runner-up, Hack for Tomorrow Hackathon, VSSUT Burla 2025.",
+      tags: ["YOLOv8", "Lucas-Kanade Optical Flow", "MediaPipe", "OpenCV", "Streamlit"],
+      link: "https://github.com/Seikh05/FEMEVISION-V1"
+    },
+    {
+      title: "Face Recognition Attendance System",
+      meta: "PyTorch · MTCNN · FaceNet · SVM · Flask",
+      description: "Built an end-to-end face recognition pipeline (MTCNN → FaceNet embeddings → SVM) served through a Flask web app for automated attendance logging.",
+      tags: ["Python", "OpenCV", "Flask", "CNNs"],
+      link: "https://github.com/Seikh05/Face-Recognition-based-Attendance-System"
+    },
+    {
+      title: "IMU-Coordinated Bot with Heading Stabilisation",
+      meta: "MPU6050 · Madgwick Filter · PID Control · Arduino",
+      description: "Fused 6-DOF IMU data using a Madgwick filter; implemented closed-loop PID control for robot heading stabilization with auto-calibration.",
+      tags: ["Arduino", "PID Control", "C / C++"],
+      link: "https://github.com/Seikh05/IMU-Coordinated-Bot"
     },
     {
       title: "RPLidar Visualisation & Gazebo Simulation",
@@ -113,31 +146,10 @@ window.portfolioData = {
       link: "https://github.com/Seikh05"
     },
     {
-      title: "Face Recognition Attendance System",
-      meta: "PyTorch · MTCNN · FaceNet · SVM · Flask",
-      description: "Engineered a real-time face recognition pipeline (MTCNN, FaceNet, SVM) deployed via a Flask web application for automated attendance logging.",
-      tags: ["Python", "OpenCV", "CNNs"],
-      link: "https://github.com/Seikh05"
-    },
-    {
-      title: "IMU-Coordinated Bot with Heading Stabilisation",
-      meta: "MPU6050 · Madgwick Filter · PID Control · Arduino",
-      description: "Fused 6-DOF IMU data via Madgwick complementary filter; implemented closed-loop PID heading stabilisation with auto-calibration and deadband control.",
-      tags: ["Arduino", "PID Control", "C / C++"],
-      link: "https://github.com/Seikh05"
-    },
-    {
-      title: "FemeVision — Vision-Based Safety System",
-      meta: "YOLOv8 · Lucas-Kanade Optical Flow · MediaPipe · OpenCV · Streamlit",
-      description: "Multi-modal perception pipeline combining object detection, optical flow motion estimation, and pose estimation — Runner-up, Hack for Tomorrow Hackathon, VSSUT Burla 2025.",
-      tags: ["YOLOv8", "Optical Flow", "MediaPipe", "OpenCV"],
-      link: "https://github.com/Seikh05"
-    },
-    {
       title: "Smart Environment Monitor (IoT)",
       meta: "Raspberry Pi · Arduino Nano · ESP32 · ThingSpeak",
       description: "Multi-sensor RPi + Arduino hybrid system with real-time cloud telemetry via ThingSpeak; covers temperature, humidity, and ambient light acquisition.",
-      tags: ["Raspberry Pi", "Arduino", "ESP32", "IoT"],
+      tags: ["Raspberry Pi", "Arduino", "ESP32"],
       link: "https://github.com/Seikh05"
     }
   ],
@@ -177,8 +189,8 @@ window.portfolioData = {
     { title: "Embedded Systems for Beginners", issuer: "NIELIT" }
   ],
   researchInterests: [
-    { title: "Autonomous Systems", desc: "Robotics, Drone Simulations, Edge AI, Embedded Systems integration." },
-    { title: "Artificial Intelligence", desc: "Deep Learning, Computer Vision." }
+    { title: "Autonomous Systems", desc: "Edge AI, Cyber Physical Systems, Robotics and Automations." },
+    { title: "Artificial Intelligence", desc: "Generative AI, Deep Learning, Computer Vision." }
   ],
   extracurriculars: [
     { title: "Technical Memberships", desc: "Core Member at College Robotics Club and Active IEEE Student Member." },
@@ -187,25 +199,24 @@ window.portfolioData = {
   posts: [
     {
       file: "2026-06-15-pcb-yolo.md",
-      title: "Deep Learning for Automated PCB Auditing",
+      title: "Deep Learning & LMMs for Automated PCB Auditing (PCBRE)",
       date: "2026-06-15",
-      excerpt: "Sharing preliminary observations from my summer project at ESE, IISc Bengaluru: training convolutional models to map micro-electronic components.",
-      content: `# Deep Learning for Automated PCB Auditing
+      excerpt: "Sharing observations from my research internship at ESE, IISc Bengaluru: engineering PCBRE, an automated multi-modal pipeline for component detection, Gemini Vision OCR, and power rail mapping.",
+      content: `During my summer research fellowship at the Department of Electronic Systems Engineering (DESE), IISc Bengaluru, I engineered **PCBRE** — a non-destructive hardware auditing and reverse-engineering framework.
 
-Currently, at the Electronic Systems Engineering (ESE) Dept, IISc Bengaluru, I am working on automating the extraction of a Bill of Materials (BoM) from raw PCB images.
+Normally, quality control and reverse engineering of multi-layer PCBs require painstaking manual inspection or destructive acid de-layering. PCBRE automates this through a multi-modal computer vision and Large Multimodal Model (LMM) approach.
 
-Normally, quality control and reverse engineering of multi-layer PCBs involve meticulous manual inspection. Our project aims to automate this using convolutional networks.
+## Key Pipeline Components
 
-## The Approach
+1. **Oriented Component Detection (YOLOv8-OBB)**:
+   - Fine-tuned oriented bounding box detection (YOLOv8-OBB) to localize rotated IC chips, SMD passives, diodes, and pin arrays.
 
-1. **Object Detection**:
-   - We fine-tune a YOLOv8 network on high-resolution orthographic images of printed circuit boards.
-   - The network is trained to identify resistors, capacitors, IC chips, diodes, and test points.
+2. **LMM Chip Marking Extraction (Gemini Vision)**:
+   - Segmented chip package crops are passed to Gemini Vision for zero-shot text recognition, reliably recovering laser-etched part numbers and serial codes.
 
-2. **OCR Pre-Processing**:
-   - Chip identifiers are often laser-etched and highly reflective.
-   - I implemented a custom OpenCV pre-processing pipeline (adaptive thresholding, morphological closing, and perspective warps) to crop and normalize text bounding boxes.
-   - This increased Tesseract/OCR confidence scores from ~68% to 92%+.
+3. **Probe-Free Power Rail & HBoM Generation**:
+   - Silkscreen landmark text analysis combined with trace width classification identifies VCC and GND power rails.
+   - Generates a structured Hardware Bill of Materials (HBoM) complete with automated datasheet search links.
 `
     },
     {
@@ -213,9 +224,7 @@ Normally, quality control and reverse engineering of multi-layer PCBs involve me
       title: "Simulating A* Path Planning in ROS2 Humble",
       date: "2026-05-10",
       excerpt: "Walkthrough of my ROS2 robot model, SLAM node configurations, and implementing a custom pathfinder in Gazebo.",
-      content: `# Simulating A* Path Planning in ROS2 Humble
-
-This post covers the design and execution of **Destination Bot**, a custom-modeled differential-drive robot running on **ROS2 Humble** and **Gazebo**.
+      content: `This post covers the design and execution of **Destination Bot**, a custom-modeled differential-drive robot running on **ROS2 Humble** and **Gazebo**.
 
 ## Robot Assembly (URDF)
 
