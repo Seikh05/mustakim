@@ -781,7 +781,7 @@ footer {
 
 /* Print Styles */
 @media print {
-  .topbar, .theme-btn, .skip, footer {
+  .topbar, .theme-btn, .skip, footer, .robotic-arm-container, #collaboration-section {
     display: none !important;
   }
   body {
@@ -794,3 +794,138 @@ footer {
     padding: 0 !important;
   }
 }
+
+/* ============================================================
+   Collaboration & Opportunities Card (Bottom of Page)
+   ============================================================ */
+
+#collaboration-section {
+  margin-top: 55px;
+  margin-bottom: 20px;
+}
+
+.collaboration-card {
+  position: relative;
+  background: var(--code-bg);
+  border: 1px solid var(--border-focus);
+  border-radius: calc(var(--radius) + 4px);
+  padding: 32px 28px;
+  box-shadow: 0 4px 24px rgba(56, 189, 248, 0.08);
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.collaboration-card:hover {
+  box-shadow: 0 8px 32px rgba(56, 189, 248, 0.15);
+}
+
+.collaboration-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--accent);
+}
+
+.collab-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  background: var(--accent-soft);
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+}
+
+.collab-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.collab-desc {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.collab-domains {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.collab-domain-chip {
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 5px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.collab-domain-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.collab-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.collab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.collab-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.collab-btn.primary-btn {
+  background: var(--accent);
+  color: #ffffff !important;
+  border: 1px solid var(--accent);
+}
+
+.collab-btn.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.35);
+  color: #ffffff !important;
+}
+
+.collab-btn.secondary-btn {
+  background: var(--bg);
+  color: var(--text) !important;
+  border: 1px solid var(--border);
+}
+
+.collab-btn.secondary-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent) !important;
+  transform: translateY(-2px);
+}
+

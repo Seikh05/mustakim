@@ -8,6 +8,7 @@ function getIconSvg(name) {
     linkedin: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>`,
     mail: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>`,
     "file-text": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>`,
+    whatsapp: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>`,
     "external-link": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-link-icon"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>`,
     "arrow-left": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>`,
     award: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>`,
@@ -212,6 +213,43 @@ function renderHome() {
             • <strong>${escapeHtml(item.title)}</strong>: ${escapeHtml(item.desc)}
           </div>
         `).join("")}
+      </div>
+    `;
+  }
+
+  // Render Collaboration & Opportunities section at the very end
+  const collabEl = document.getElementById("collaboration-container");
+  if (collabEl && data.collaboration) {
+    const c = data.collaboration;
+    collabEl.innerHTML = `
+      <div class="collaboration-card">
+        <div class="collab-header">
+          <span class="collab-status-badge">
+            <span class="pulse-dot"></span>
+            ${escapeHtml(c.status)}
+          </span>
+          <h2 class="collab-title">${escapeHtml(c.headline)}</h2>
+        </div>
+        <p class="collab-desc">${escapeHtml(c.description)}</p>
+        <div class="collab-domains">
+          ${c.domains.map(d => `<span class="collab-domain-chip">⚡ ${escapeHtml(d)}</span>`).join("")}
+        </div>
+        <div class="collab-actions">
+          <a href="mailto:${escapeHtml(c.email)}" class="collab-btn primary-btn">
+            ${getIconSvg("mail")}
+            <span>Get in Touch (Email)</span>
+          </a>
+          ${c.whatsapp ? `
+            <a href="${escapeHtml(c.whatsapp)}" target="_blank" rel="noopener noreferrer" class="collab-btn secondary-btn">
+              ${getIconSvg("whatsapp")}
+              <span>WhatsApp</span>
+            </a>
+          ` : ""}
+          <a href="${escapeHtml(c.linkedin)}" target="_blank" rel="noopener noreferrer" class="collab-btn secondary-btn">
+            ${getIconSvg("linkedin")}
+            <span>LinkedIn Profile</span>
+          </a>
+        </div>
       </div>
     `;
   }

@@ -18,6 +18,7 @@ window.portfolioData = {
     { name: "GitHub", url: "https://github.com/Seikh05", icon: "github" },
     { name: "LinkedIn", url: "https://linkedin.com/in/seikh-mustakim", icon: "linkedin" },
     { name: "Email", url: "mailto:seikh2004mustakim@outlook.com", icon: "mail" },
+    { name: "WhatsApp", url: "https://wa.me/mustakim45", icon: "whatsapp" },
     { name: "CV (PDF)", url: "assets/MyCV.pdf", icon: "file-text" }
   ],
   currently: "Final year Student at Parala Maharaja Engineering College. Recently completed an IASc Summer Research Fellowship at ESE, IISc Bengaluru, engineering PCBRE — an automated multi-modal hardware auditing & reverse engineering framework.",
@@ -239,5 +240,14 @@ I created a custom robot description (URDF) with:
 We use the \`slam_toolbox\` in ROS2 to map the room dynamically. The lidar publishes range readings, while wheel encoders publish odometry (\`/odom\`). Together, they allow the robot to localize and build a occupancy grid (\`/map\`).
 `
     }
-  ]
+  ],
+  collaboration: {
+    status: "Open for Opportunities",
+    headline: "Open for Internships & Research Collaborations",
+    description: "I am actively seeking internship roles, research collaborations, and joint project development in Robotics, Cyber-Physical Systems (CPS), Autonomous Navigation (ROS2/SLAM), and Edge AI.",
+    domains: ["Robotics & Autonomous Systems", "Cyber-Physical Systems (CPS)", "ROS2 & SLAM Navigation", "Edge AI & Vision Integration"],
+    email: "seikh2004mustakim@outlook.com",
+    whatsapp: "https://wa.me/mustakim45",
+    linkedin: "https://linkedin.com/in/seikh-mustakim"
+  }
 };
