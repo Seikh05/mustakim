@@ -1,7 +1,7 @@
 // Shared JavaScript engine for the Portfolio website.
-// Parses portfolioData dynamically and populates the DOM components.
+// Parses portfolioData dynamically and populates modern showcase components.
 
-// Helper to return beautiful inline SVG icons (Feather Icons pack)
+// Helper to return beautiful inline SVG icons
 function getIconSvg(name) {
   const icons = {
     github: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>`,
@@ -10,16 +10,16 @@ function getIconSvg(name) {
     "file-text": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>`,
     whatsapp: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>`,
     "external-link": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-link-icon"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>`,
+    "arrow-down": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>`,
     "arrow-left": `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>`,
     award: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>`,
-    briefcase: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>`
+    zap: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>`
   };
   return icons[name] || "";
 }
 
-// Global Dark/Light Theme & Color Theme Controller
+// Global Dark/Light Theme Controller
 function initTheme() {
-  // Dark/Light Theme toggle
   const currentTheme = localStorage.getItem("theme") || "dark";
   document.documentElement.setAttribute("data-theme", currentTheme);
   
@@ -47,177 +47,133 @@ function escapeHtml(s) {
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
+// Sync Navigation Bar (Brand name, dynamic CV link)
+function syncNav() {
+  const data = window.portfolioData;
+  if (!data) return;
+  const brandEl = document.querySelector(".brand");
+  if (brandEl) brandEl.textContent = data.profile.brandName || data.profile.name;
+  
+  document.querySelectorAll('header.topbar .nav a').forEach(a => {
+    if (a.textContent.trim() === 'CV') {
+      a.href = data.profile.cv;
+      if (data.profile.cv && data.profile.cv.endsWith('.docx')) {
+        a.setAttribute('download', '');
+      }
+    }
+  });
+}
+
+// Global active filter state for projects
+let activeProjectCategory = "All";
+
 // Render dynamic homepage elements
 function renderHome() {
   const data = window.portfolioData;
   if (!data) return;
 
+  // Sync Header Nav & Brand
+  syncNav();
+
   // Set Document Title
-  document.title = `${data.profile.name} — Portfolio`;
+  document.title = `${data.profile.name} — Autopilot & Robotics Portfolio`;
 
-  // Render Header Brand Name
-  const brandEl = document.querySelector(".brand");
-  if (brandEl) brandEl.textContent = data.profile.brandName || data.profile.name;
-
-  // Render Intro Section
-  const introEl = document.getElementById("intro-container");
-  if (introEl) {
-    introEl.innerHTML = `
-      <div class="intro-text">
-        <h1 class="name">${escapeHtml(data.profile.name)}</h1>
-        <p class="position">${escapeHtml(data.profile.title)} · <span class="highlight-org">${escapeHtml(data.profile.company)}</span></p>
-        <p class="interests">${escapeHtml(data.profile.interests)}</p>
-        <p class="statement">${escapeHtml(data.profile.statement)}</p>
-        <div class="contact-line">
-          ${data.socials.map(s => `
-            <a href="${escapeHtml(s.url)}" class="contact-chip" ${s.url.startsWith("http") ? 'target="_blank" rel="noopener noreferrer"' : ""}>
-              ${getIconSvg(s.icon)}
-              <span>${escapeHtml(s.name)}</span>
+  // 1. RENDER HERO & STATS SECTION
+  const heroEl = document.getElementById("hero-container");
+  if (heroEl) {
+    heroEl.innerHTML = `
+      <div class="hero-top-row">
+        <div class="hero-main-col">
+          <div class="hero-badge">
+            <span class="hero-pulse"></span>
+            <span>${escapeHtml(data.profile.badge)}</span>
+          </div>
+          <h1 class="hero-name">${escapeHtml(data.profile.name)}</h1>
+          <p class="hero-headline">${escapeHtml(data.profile.headline)}</p>
+          <p class="hero-bio">${escapeHtml(data.profile.bio)}</p>
+          
+          <div class="hero-actions">
+            <a href="#projects-section" class="btn primary-btn">
+              <span>Explore Flagship Work</span>
+              ${getIconSvg("arrow-down")}
             </a>
+            <a href="${escapeHtml(data.profile.cv)}" class="btn secondary-btn" download>
+              ${getIconSvg("file-text")}
+              <span>Resume (DOCX)</span>
+            </a>
+          </div>
+
+          <div class="hero-social-chips">
+            ${data.socials.map(s => `
+              <a href="${escapeHtml(s.url)}" class="contact-chip" ${s.url.startsWith("http") ? 'target="_blank" rel="noopener noreferrer"' : ""}>
+                ${getIconSvg(s.icon)}
+                <span>${escapeHtml(s.name)}</span>
+              </a>
+            `).join("")}
+          </div>
+        </div>
+
+        <div class="hero-avatar-col">
+          <div class="avatar-wrapper">
+            <img class="hero-headshot" src="${escapeHtml(data.profile.avatar)}" alt="${escapeHtml(data.profile.name)}" width="130" height="130">
+          </div>
+        </div>
+      </div>
+
+      <!-- Trophy Stats Bar -->
+      <div class="stats-grid">
+        ${data.stats.map(st => `
+          <div class="stat-card">
+            <div class="stat-val">${escapeHtml(st.value)}</div>
+            <div class="stat-label">${escapeHtml(st.label)}</div>
+            <div class="stat-highlight">${escapeHtml(st.highlight)}</div>
+          </div>
+        `).join("")}
+      </div>
+    `;
+  }
+
+  // 2. RENDER FEATURED PROJECTS WITH CATEGORY FILTER
+  setupProjectFilters();
+  renderProjectsShowcase();
+
+  // 3. RENDER CORE SUPERPOWERS (SKILL DOMAINS)
+  const superpowersEl = document.getElementById("superpowers-container");
+  if (superpowersEl && data.skillDomains) {
+    superpowersEl.innerHTML = data.skillDomains.map(domain => `
+      <div class="superpower-card">
+        <div class="superpower-header">
+          <span class="superpower-icon">${domain.icon}</span>
+          <h3 class="superpower-title">${escapeHtml(domain.title)}</h3>
+        </div>
+        <div class="superpower-tags">
+          ${domain.skills.map(s => `
+            <span class="superpower-pill">${escapeHtml(s)}</span>
           `).join("")}
         </div>
       </div>
-      <div class="headshot-container">
-        <img class="headshot" src="${escapeHtml(data.profile.avatar)}" alt="${escapeHtml(data.profile.name)}" width="120" height="120">
-      </div>
-    `;
+    `).join("");
   }
 
-  // Render Currently section
-  const currentlyEl = document.getElementById("currently-container");
-  if (currentlyEl) {
-    currentlyEl.innerHTML = `
-      <div class="currently-box">
-        <p>${escapeHtml(data.currently)}</p>
-      </div>
-    `;
-  }
-
-  // Render Skills with Dynamic Categories
-  const skillsEl = document.getElementById("skills-container");
-  if (skillsEl) {
-    // Group skills by category
-    const groupedSkills = {};
-    data.skills.forEach(s => {
-      if (!groupedSkills[s.category]) groupedSkills[s.category] = [];
-      groupedSkills[s.category].push(s.name);
-    });
-
-    let skillsHtml = '<div class="skills-grid">';
-    for (const [cat, names] of Object.entries(groupedSkills)) {
-      skillsHtml += `
-        <div class="skill-category">
-          <span class="skill-cat-title">${escapeHtml(cat)}</span>
-          <div class="skills-list">
-            ${names.map(name => `<button class="skill-badge" data-skill="${escapeHtml(name)}">${escapeHtml(name)}</button>`).join("")}
-          </div>
+  // 4. RENDER MILESTONES & TRACK RECORD
+  const milestonesEl = document.getElementById("milestones-container");
+  if (milestonesEl && data.milestones) {
+    milestonesEl.innerHTML = data.milestones.map(m => `
+      <div class="milestone-card">
+        <div class="milestone-top">
+          <div class="milestone-title">${escapeHtml(m.title)}</div>
+          <span class="milestone-date">${escapeHtml(m.date)}</span>
         </div>
-      `;
-    }
-    skillsHtml += "</div>";
-    skillsEl.innerHTML = skillsHtml;
-
-    // Attach click handlers for Skills Filter Interaction
-    setupSkillsFilter();
-  }
-
-  // Render Projects Grid
-  renderProjects();
-
-  // Render Experience Timeline
-  const timelineEl = document.getElementById("timeline-container");
-  if (timelineEl) {
-    timelineEl.innerHTML = `
-      <div class="timeline">
-        ${data.timeline.map(item => `
-          <div class="timeline-item">
-            <div class="timeline-node"></div>
-            <div class="timeline-header">
-              <span class="timeline-role">${escapeHtml(item.role)}</span>
-              <span class="timeline-period">${escapeHtml(item.period)}</span>
-            </div>
-            <div class="timeline-org">${escapeHtml(item.organization)}</div>
-            ${item.description ? `<p class="timeline-desc">${escapeHtml(item.description)}</p>` : ""}
-          </div>
-        `).join("")}
-      </div>
-    `;
-  }
-
-  // Render Publications
-  const pubsEl = document.getElementById("publications-container");
-  if (pubsEl && data.publications) {
-    pubsEl.innerHTML = `
-      ${data.publications.map(pub => `
-        <div class="pub-item">
-          <div class="pub-title">${escapeHtml(pub.title)}</div>
-          <div class="pub-authors">${escapeHtml(pub.authors)}</div>
-          <div class="pub-venue">${escapeHtml(pub.venue)}</div>
-          ${pub.note ? `<div class="pub-note">${escapeHtml(pub.note)}</div>` : ""}
-          ${pub.link && pub.link !== "#" ? `<div class="pub-links"><a href="${escapeHtml(pub.link)}" target="_blank" rel="noopener">Link ${getIconSvg("external-link")}</a></div>` : ""}
+        <div class="milestone-org">
+          <span>${escapeHtml(m.org)}</span>
+          ${m.highlight ? ` · <span class="milestone-highlight-tag">${escapeHtml(m.highlight)}</span>` : ""}
         </div>
-      `).join("")}
-    `;
-  }
-
-  // Render Achievements & Leadership
-  const achievementsEl = document.getElementById("achievements-container");
-  if (achievementsEl && data.achievements) {
-    achievementsEl.innerHTML = `
-      <div class="achievements-list">
-        ${data.achievements.map(item => `
-          <div class="pub-item" style="margin-bottom: 12px;">
-            <div class="pub-title">• ${escapeHtml(item.title)} <span style="font-weight: normal; color: var(--text-muted); float: right; font-size: 0.88rem;">${escapeHtml(item.meta)}</span></div>
-            ${item.description ? `<div class="pub-note" style="margin-left: 12px; margin-top: 2px;">${escapeHtml(item.description)}</div>` : ""}
-          </div>
-        `).join("")}
+        <p class="milestone-desc">${escapeHtml(m.desc)}</p>
       </div>
-    `;
+    `).join("");
   }
 
-  // Render Certifications
-  const certificationsEl = document.getElementById("certifications-container");
-  if (certificationsEl && data.certifications) {
-    certificationsEl.innerHTML = `
-      <div class="certifications-list">
-        ${data.certifications.map(cert => `
-          <div class="cert-item">
-            • <strong>${escapeHtml(cert.title)}</strong> — ${escapeHtml(cert.issuer)}
-          </div>
-        `).join("")}
-      </div>
-    `;
-  }
-
-  // Render Research Interests
-  const interestsEl = document.getElementById("research-interests-container");
-  if (interestsEl && data.researchInterests) {
-    interestsEl.innerHTML = `
-      <div class="certifications-list">
-        ${data.researchInterests.map(item => `
-          <div class="cert-item">
-            • <strong>${escapeHtml(item.title)}</strong>: ${escapeHtml(item.desc)}
-          </div>
-        `).join("")}
-      </div>
-    `;
-  }
-
-  // Render Extracurricular Activities
-  const extracurricularsEl = document.getElementById("extracurriculars-container");
-  if (extracurricularsEl && data.extracurriculars) {
-    extracurricularsEl.innerHTML = `
-      <div class="certifications-list">
-        ${data.extracurriculars.map(item => `
-          <div class="cert-item">
-            • <strong>${escapeHtml(item.title)}</strong>: ${escapeHtml(item.desc)}
-          </div>
-        `).join("")}
-      </div>
-    `;
-  }
-
-  // Render Collaboration & Opportunities section at the very end
+  // 5. RENDER COLLABORATION CTA
   const collabEl = document.getElementById("collaboration-container");
   if (collabEl && data.collaboration) {
     const c = data.collaboration;
@@ -242,7 +198,7 @@ function renderHome() {
           ${c.whatsapp ? `
             <a href="${escapeHtml(c.whatsapp)}" target="_blank" rel="noopener noreferrer" class="collab-btn secondary-btn">
               ${getIconSvg("whatsapp")}
-              <span>WhatsApp</span>
+              <span>WhatsApp Direct</span>
             </a>
           ` : ""}
           <a href="${escapeHtml(c.linkedin)}" target="_blank" rel="noopener noreferrer" class="collab-btn secondary-btn">
@@ -261,63 +217,66 @@ function renderHome() {
   }
 }
 
-// Function to render projects, separated so it can be filtered dynamically
-function renderProjects(filterSkill = null) {
+// Setup project category filters (All, Autopilot, Computer Vision, Silicon)
+function setupProjectFilters() {
+  const container = document.getElementById("project-filters-container");
+  const data = window.portfolioData;
+  if (!container || !data) return;
+
+  const categories = ["All", ...new Set(data.projects.map(p => p.category).filter(Boolean))];
+
+  container.innerHTML = categories.map(cat => `
+    <button class="filter-tab ${cat === activeProjectCategory ? "active" : ""}" data-category="${escapeHtml(cat)}">
+      ${escapeHtml(cat)}
+    </button>
+  `).join("");
+
+  container.querySelectorAll(".filter-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      activeProjectCategory = tab.getAttribute("data-category");
+      container.querySelectorAll(".filter-tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      renderProjectsShowcase();
+    });
+  });
+}
+
+// Render filtered project showcase cards
+function renderProjectsShowcase() {
   const data = window.portfolioData;
   const gridEl = document.getElementById("projects-grid");
-  if (!gridEl) return;
+  if (!gridEl || !data) return;
 
-  gridEl.innerHTML = data.projects.map(proj => {
-    const isMatched = filterSkill ? proj.tags.includes(filterSkill) : false;
-    const isDimmed = filterSkill && !isMatched;
-    const isHighlighted = filterSkill && isMatched;
+  const filtered = activeProjectCategory === "All"
+    ? data.projects
+    : data.projects.filter(p => p.category === activeProjectCategory);
 
-    return `
-      <div class="project-card ${isDimmed ? "dimmed" : ""} ${isHighlighted ? "highlighted" : ""}">
-        <h3>
+  gridEl.innerHTML = filtered.map(proj => `
+    <article class="showcase-card">
+      <div class="showcase-card-header">
+        ${proj.badge ? `<span class="showcase-badge">${escapeHtml(proj.badge)}</span>` : ""}
+        <h3 class="showcase-title">
           <a href="${escapeHtml(proj.link)}" target="_blank" rel="noopener">
             <span>${escapeHtml(proj.title)}</span>
             ${getIconSvg("external-link")}
           </a>
         </h3>
-        <div class="project-meta">${escapeHtml(proj.meta)}</div>
-        <p>${escapeHtml(proj.description)}</p>
-        <div class="project-tags">
-          ${proj.tags.map(t => `
-            <span class="project-tag ${t === filterSkill ? "highlight-tag" : ""}">${escapeHtml(t)}</span>
-          `).join("")}
-        </div>
+        <p class="showcase-subtitle">${escapeHtml(proj.subtitle)}</p>
       </div>
-    `;
-  }).join("");
-}
 
-// Setup interactive skills filter: clicking skill badge filters projects
-let activeFilteredSkill = null;
-function setupSkillsFilter() {
-  const badges = document.querySelectorAll(".skill-badge");
-  badges.forEach(badge => {
-    badge.addEventListener("click", () => {
-      const skillName = badge.getAttribute("data-skill");
-      
-      // If clicking the same skill, reset filter
-      if (activeFilteredSkill === skillName) {
-        activeFilteredSkill = null;
-        badges.forEach(b => b.classList.remove("active"));
-        renderProjects(null);
-      } else {
-        activeFilteredSkill = skillName;
-        badges.forEach(b => {
-          if (b.getAttribute("data-skill") === skillName) {
-            b.classList.add("active");
-          } else {
-            b.classList.remove("active");
-          }
-        });
-        renderProjects(skillName);
-      }
-    });
-  });
+      <p class="showcase-desc">${escapeHtml(proj.description)}</p>
+
+      <div class="showcase-footer">
+        <div class="showcase-tags">
+          ${proj.tags.map(t => `<span class="showcase-tag">${escapeHtml(t)}</span>`).join("")}
+        </div>
+        <a href="${escapeHtml(proj.link)}" target="_blank" rel="noopener" class="showcase-link">
+          <span>${escapeHtml(proj.actionText || "View Project")}</span>
+          ${getIconSvg("external-link")}
+        </a>
+      </div>
+    </article>
+  `).join("");
 }
 
 // ---- Render list of blog posts (blog.html) ----
@@ -326,9 +285,8 @@ function renderBlogList(containerId) {
   const data = window.portfolioData;
   if (!container || !data) return;
 
-  // Set brand name
-  const brandEl = document.querySelector(".brand");
-  if (brandEl) brandEl.textContent = data.profile.brandName || data.profile.name;
+  // Sync nav
+  syncNav();
 
   // Set Page Title
   document.title = `Notes — ${data.profile.name}`;
@@ -357,9 +315,8 @@ function renderBlogPost(containerId) {
   const data = window.portfolioData;
   if (!container || !data) return;
 
-  // Set brand name
-  const brandEl = document.querySelector(".brand");
-  if (brandEl) brandEl.textContent = data.profile.brandName || data.profile.name;
+  // Sync nav
+  syncNav();
 
   const params = new URLSearchParams(location.search);
   const fileName = params.get("p");

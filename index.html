@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Seikh Souvagya Mustakim — Portfolio</title>
-  <meta name="description" content="Portfolio of Seikh Souvagya Mustakim, an Electronics & Telecommunication Engineering student at Parala Maharaja Engineering College, Berhampur.">
+  <title>Seikh Souvagya Mustakim — Autopilot & Robotics Portfolio</title>
+  <meta name="description" content="Portfolio of Seikh Souvagya Mustakim — Autopilot & Robotics Researcher, IASc Research Fellow at IISc Bengaluru, and Final-Year B.Tech (ETC) Student.">
   <meta name="theme-color" content="#0b0f19">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0f19'/%3E%3Ctext x='16' y='21' font-family='Outfit,sans-serif' font-size='14' font-weight='bold' text-anchor='middle' fill='%2338bdf8'%3ESM%3C/text%3E%3C/svg%3E">
   
@@ -14,9 +14,8 @@
   
   <link rel="stylesheet" href="assets/style.css">
   
-  <!-- Load the centralized data first -->
+  <!-- Load centralized data & rendering engine -->
   <script src="portfolio-data.js"></script>
-  <!-- Load script engine -->
   <script src="assets/site.js"></script>
   
   <script>
@@ -34,8 +33,10 @@
       <a class="brand" href="index.html">Loading...</a>
       <nav class="nav" aria-label="Primary">
         <a href="index.html" class="active" aria-current="page">Home</a>
+        <a href="#projects-section">Projects</a>
+        <a href="#superpowers-section">Superpowers</a>
         <a href="blog.html">Notes</a>
-        <a href="assets/MyCV.pdf" target="_blank">CV</a>
+        <a href="assets/MyCV.docx" target="_blank" download>CV</a>
         <button class="theme-btn" aria-label="Toggle Theme" title="Toggle Theme">
           <!-- Moon Icon -->
           <svg class="moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
@@ -46,80 +47,55 @@
     </header>
   
     <main id="main">
-      <!-- Profile Intro section -->
-      <section class="intro" id="intro-container">
+      <!-- 1. SHOW-OFF HERO & STATS SECTION -->
+      <section class="hero-section" id="hero-container">
         <!-- Dynamically populated from portfolio-data.js -->
       </section>
-  
-      <!-- Currently section -->
-      <section aria-label="Currently">
-        <h2 class="section-title">Currently</h2>
-        <div id="currently-container">
-          <!-- Dynamically populated from portfolio-data.js -->
+
+      <!-- 2. FEATURED PROJECTS SHOWCASE -->
+      <section class="section" id="projects-section" aria-label="Featured Projects">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">Flagship systems spanning indigenous autopilots, AI hardware auditing, and custom silicon.</p>
+          </div>
+          <div class="project-filters" id="project-filters-container">
+            <!-- Dynamic Category Filter Pills -->
+          </div>
         </div>
-      </section>
-  
-      <!-- Skills section -->
-      <section aria-label="Skills">
-        <h2 class="section-title">Skills</h2>
-        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px; margin-top: -20px;">
-          💡 Click on any skill badge below to dynamically highlight or filter projects utilizing that technology.
-        </p>
-        <div id="skills-container">
-          <!-- Dynamically populated from portfolio-data.js -->
-        </div>
-      </section>
-  
-      <!-- Projects section -->
-      <section aria-label="Projects">
-        <h2 class="section-title">Projects</h2>
-        <div class="projects-grid" id="projects-grid">
-          <!-- Dynamically populated from portfolio-data.js -->
-        </div>
-      </section>
-  
-      <!-- Timeline / Experience section -->
-      <section aria-label="Timeline">
-        <h2 class="section-title">Timeline</h2>
-        <div id="timeline-container">
-          <!-- Dynamically populated from portfolio-data.js -->
-        </div>
-      </section>
-  
-      <!-- Achievements & Leadership section -->
-      <section aria-label="Achievements">
-        <h2 class="section-title">Achievements & Leadership</h2>
-        <div id="achievements-container">
+        <div class="projects-showcase-grid" id="projects-grid">
           <!-- Dynamically populated from portfolio-data.js -->
         </div>
       </section>
 
-      <!-- Certifications section -->
-      <section aria-label="Certifications">
-        <h2 class="section-title">Certifications & Training</h2>
-        <div id="certifications-container">
+      <!-- 3. CORE SUPERPOWERS / TECH STACK -->
+      <section class="section" id="superpowers-section" aria-label="Core Superpowers">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Core Superpowers</h2>
+            <p class="section-subtitle">Engineering depth across flight control firmware, computer vision, and custom silicon.</p>
+          </div>
+        </div>
+        <div class="superpowers-grid" id="superpowers-container">
           <!-- Dynamically populated from portfolio-data.js -->
         </div>
       </section>
 
-      <!-- Research Interests section -->
-      <section aria-label="Research Interests">
-        <h2 class="section-title">Research Interests</h2>
-        <div id="research-interests-container">
+      <!-- 4. MILESTONES & TRACK RECORD -->
+      <section class="section" id="milestones-section" aria-label="Milestones & Track Record">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Milestones & Track Record</h2>
+            <p class="section-subtitle">National challenges, research fellowships, and leadership impact.</p>
+          </div>
+        </div>
+        <div class="milestones-list" id="milestones-container">
           <!-- Dynamically populated from portfolio-data.js -->
         </div>
       </section>
 
-      <!-- Extracurricular Activities section -->
-      <section aria-label="Extracurricular Activities">
-        <h2 class="section-title">Extracurricular Activities</h2>
-        <div id="extracurriculars-container">
-          <!-- Dynamically populated from portfolio-data.js -->
-        </div>
-      </section>
-
-      <!-- Collaboration & Opportunities section at the very end -->
-      <section aria-label="Collaboration & Opportunities" id="collaboration-section">
+      <!-- 5. COLLABORATION & OPPORTUNITIES -->
+      <section class="section" id="collaboration-section" aria-label="Collaboration & Opportunities">
         <div id="collaboration-container">
           <!-- Dynamically populated from portfolio-data.js -->
         </div>
