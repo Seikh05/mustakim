@@ -86,7 +86,7 @@ window.portfolioData = {
       badge: "⚡ C2S Programme · Custom Silicon IP",
       category: "Silicon & RTL",
       subtitle: "10-stage pipelined RTL datapath feeding an on-chip CNN accelerator (Cadence Genus synthesized)",
-      description: "4-member team developing a custom multi-threaded RISC-V SoC with integrated JPEG codec and CNN accelerator. Owned the Preprocessing IP: designed a 10-stage pipelined RTL datapath converting JPEG streams to 28×28 FP32 tensors with 2-deep frame pipelining. Synthesized in Cadence Genus: 50 MHz (target 100 MHz), 8.96 mm² (715 kGE), 0.182 mW for ASIC tapeout.",
+      description: "4-member team developing a custom multi-threaded RISC-V SoC with integrated JPEG codec and CNN accelerator. Owned the Preprocessing IP: designed a 10-stage pipelined RTL datapath converting JPEG streams to 28×28 FP32 tensors with 2-deep frame pipelining. Synthesized in Cadence Genus.",
       tags: ["Verilog HDL", "Cadence Genus", "Xilinx Vivado", "RTL Pipelining", "RISC-V", "Python"],
       link: "https://github.com/Seikh05",
       actionText: "System Architecture"
