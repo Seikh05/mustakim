@@ -114,10 +114,41 @@ function renderHome() {
         </div>
 
         <div class="hero-avatar-col">
-          <div class="avatar-wrapper">
-            <img class="hero-headshot" src="${escapeHtml(data.profile.avatar)}" alt="${escapeHtml(data.profile.name)}" width="130" height="130">
+          <div class="avatar-3d" id="avatar-3d">
+            <div class="avatar-viewport" role="img" aria-label="Interactive 3D avatar of ${escapeHtml(data.profile.name)} that follows your cursor">
+              <canvas id="avatar-canvas" width="300" height="300"></canvas>
+              <img class="hero-headshot avatar-fallback" src="${escapeHtml(data.profile.avatar)}" alt="${escapeHtml(data.profile.name)}" width="130" height="130" hidden>
+              <span class="avatar-status"><span class="avatar-dot"></span>Live 3D Tracking</span>
+            </div>
           </div>
         </div>
+      </div>
+
+      <!-- 3D engineering stage: digital logic / robotics / attitude gimbal (Three.js, illustrative simulations) -->
+      <div class="hero-3d-stage" id="hero-3d-stage" data-scene="logic" role="img" aria-label="Interactive 3D simulations: a clocked digital-logic pipeline, a lidar-mapping robot with A* planning, and an attitude gimbal">
+        <div class="stage-canvas-host"></div>
+        <div class="stage-toolbar">
+          <div class="stage-switch" role="group" aria-label="3D simulation">
+            <button type="button" class="stage-pill active" data-scene="logic" aria-pressed="true">Digital Logic</button>
+            <button type="button" class="stage-pill" data-scene="robot" aria-pressed="false">Robot SLAM + A*</button>
+            <button type="button" class="stage-pill" data-scene="gimbal" aria-pressed="false">Attitude Gimbal</button>
+          </div>
+        </div>
+        <canvas class="stage-wave" aria-hidden="true"></canvas>
+        <div class="stage-hud hud-gimbal" aria-hidden="true">
+          <span class="hud-item hud-yaw">YAW <b data-hud="yaw">0.0&deg;</b></span>
+          <span class="hud-item hud-pitch">PITCH <b data-hud="pitch">0.0&deg;</b></span>
+          <span class="hud-item hud-roll">ROLL <b data-hud="roll">0.0&deg;</b></span>
+        </div>
+        <div class="stage-hud hud-robot" aria-hidden="true">
+          <span class="hud-item hud-yaw">MAP <b data-hud="map">0%</b></span>
+          <span class="hud-item hud-pitch">GOAL <b data-hud="goal">--</b></span>
+          <span class="hud-item hud-roll">v <b data-hud="speed">0.00 m/s</b></span>
+        </div>
+        <div class="stage-hud hud-logic" aria-hidden="true">
+          <span class="hud-item hud-yaw">CLK <b data-hud="clk">1.11 Hz</b></span>
+        </div>
+        <div class="stage-caption"></div>
       </div>
 
       <!-- Trophy Stats Bar -->
@@ -131,6 +162,13 @@ function renderHome() {
         `).join("")}
       </div>
     `;
+
+    if (typeof window.initThreeScene === "function") {
+      window.initThreeScene(heroEl.querySelector("#hero-3d-stage"));
+    }
+    if (typeof window.initFaceAvatar === "function") {
+      window.initFaceAvatar(heroEl.querySelector("#avatar-3d"));
+    }
   }
 
   // 2. RENDER FEATURED PROJECTS WITH CATEGORY FILTER
@@ -253,6 +291,7 @@ function renderProjectsShowcase() {
 
   gridEl.innerHTML = filtered.map(proj => `
     <article class="showcase-card">
+      <span class="card-glare" aria-hidden="true"></span>
       <div class="showcase-card-header">
         ${proj.badge ? `<span class="showcase-badge">${escapeHtml(proj.badge)}</span>` : ""}
         <h3 class="showcase-title">
@@ -277,6 +316,49 @@ function renderProjectsShowcase() {
       </div>
     </article>
   `).join("");
+
+  setupCardTilt(gridEl);
+}
+
+// Physics-style 3D tilt + cursor-following specular glare for .showcase-card.
+// Delegated on the grid (bound once) so it survives filter re-renders.
+function setupCardTilt(gridEl) {
+  if (gridEl.dataset.tiltBound) return;
+  if (!window.matchMedia || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  gridEl.dataset.tiltBound = "1";
+
+  const MAX_TILT = 7; // degrees
+  let card = null, frame = 0, ev = null;
+
+  function apply() {
+    frame = 0;
+    if (!card || !ev) return;
+    const r = card.getBoundingClientRect();
+    const px = Math.min(1, Math.max(0, (ev.clientX - r.left) / r.width));
+    const py = Math.min(1, Math.max(0, (ev.clientY - r.top) / r.height));
+    card.style.setProperty("--ry", ((px - 0.5) * 2 * MAX_TILT).toFixed(2) + "deg");
+    card.style.setProperty("--rx", (-(py - 0.5) * 2 * MAX_TILT).toFixed(2) + "deg");
+    card.style.setProperty("--gx", (px * 100).toFixed(1) + "%");
+    card.style.setProperty("--gy", (py * 100).toFixed(1) + "%");
+  }
+  function reset(c) {
+    c.classList.remove("is-tilting");
+    c.style.setProperty("--rx", "0deg");
+    c.style.setProperty("--ry", "0deg");
+  }
+
+  gridEl.addEventListener("pointermove", (e) => {
+    const c = e.target.closest(".showcase-card");
+    if (!c) return;
+    if (c !== card) { if (card) reset(card); card = c; card.classList.add("is-tilting"); }
+    ev = e;
+    if (!frame) frame = requestAnimationFrame(apply);
+  });
+  gridEl.addEventListener("pointerout", (e) => {
+    const c = e.target.closest(".showcase-card");
+    if (c && !c.contains(e.relatedTarget)) { reset(c); if (card === c) card = null; }
+  });
 }
 
 // ---- Render list of blog posts (blog.html) ----

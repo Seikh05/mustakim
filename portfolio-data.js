@@ -85,11 +85,22 @@ window.portfolioData = {
       title: "Multi-Threaded RISC-V SoC with CNN Accelerator",
       badge: "⚡ C2S Programme · Custom Silicon IP",
       category: "Silicon & RTL",
-      subtitle: "10-stage pipelined RTL datapath feeding an on-chip CNN accelerator (Cadence Genus synthesized)",
-      description: "4-member team developing a custom multi-threaded RISC-V SoC with integrated JPEG codec and CNN accelerator. Owned the Preprocessing IP: designed a 10-stage pipelined RTL datapath converting JPEG streams to 28×28 FP32 tensors with 2-deep frame pipelining. Synthesized in Cadence Genus.",
+      subtitle: "10-stage pipelined RTL datapath feeding an on-chip CNN accelerator (Cadence Genus · SCL 180nm synthesis)",
+      description: "4-member team developing a custom multi-threaded RISC-V SoC with integrated JPEG codec and CNN accelerator. Owned the Preprocessing IP: designed a 10-stage pipelined RTL datapath converting JPEG streams to 28×28 FP32 tensors with 2-deep frame pipelining. Synthesized with Cadence Genus on the SCL 180nm process node; ASIC implementation with Cadence tools is planned next.",
       tags: ["Verilog HDL", "Cadence Genus", "Xilinx Vivado", "RTL Pipelining", "RISC-V", "Python"],
       link: "https://github.com/Seikh05",
       actionText: "System Architecture"
+    },
+    {
+      id: "fpga-seizure-transformer",
+      title: "FPGA-Based Seizure Detection using Transformer",
+      badge: "⚡ Vitis HLS · AMD Kria KV260 & PYNQ-ZU",
+      category: "Silicon & RTL",
+      subtitle: "Real-time edge inference of lightweight Transformer attention kernels on AMD Kria KV260",
+      description: "Trained a lightweight Transformer on the CHB-MIT scalp EEG dataset (99.4% accuracy) for real-time epileptic seizure onset detection. Synthesized HLS C++ attention kernels via Vitis HLS and deployed across AMD Kria KV260 and PYNQ-ZU platforms, interfacing a BioAmp EEG sensor for continuous low-latency edge inference.",
+      tags: ["Vitis HLS", "AMD Kria KV260", "PYNQ-ZU", "Cadence Genus", "Transformer", "Python"],
+      link: "https://github.com/Seikh05",
+      actionText: "View Architecture"
     },
     {
       id: "ros2-bot",
